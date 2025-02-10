@@ -1,7 +1,7 @@
-FROM python:3
+FROM python:3.9-alpine
 WORKDIR /app
-COPY . /app
+COPY . .
+RUN apk add --no-cache sqlite
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
-RUN python -c "from app import init_db; init_db()"
 CMD ["python", "app.py"]

@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  weather-app:
+    image: flask-weather-app
+    container_name: weather-container-new
+    ports:
+      - "5000:5000"
+    volumes:
+      - weather-data:/app/data  # Mount a persistent volume to store the database
+
+volumes:
+  weather-data:

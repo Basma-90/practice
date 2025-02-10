@@ -6,10 +6,10 @@ import os
 app = Flask(__name__)
 
 # Replace with your OpenWeatherMap API key
-API_KEY = "your_openweathermap_api_key"
+API_KEY = "8d477e8072d7f63b72a235636a9d2656"
 
 # SQLite database path
-DATABASE = "weather.db"
+DATABASE = "/app/data/weather.db"
 
 # Initialize the database
 def init_db():
@@ -89,6 +89,7 @@ def get_weather():
         return jsonify({"error": "City not found"}), 404
 
     data = response.json()
+    print("data", data)
 
     # Save the fetched weather data to the database
     conn = sqlite3.connect(DATABASE)
