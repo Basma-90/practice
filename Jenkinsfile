@@ -50,9 +50,11 @@ pipeline {
 
         stage('Run Ansible Playbook') {
             steps {
-                sh '''
-                     ansible-playbook -i /var/lib/jenkins/workspace/final/inventory.yaml /var/lib/jenkins/workspace/final/playbook.yaml -u vagrant
-                '''
+                sshagent(credentials: ['your-ssh-credential-id']) {
+                    sh '''
+                        ansible-playbook -i /var/lib/jenkins/workspace/final/inventory.yaml /var/lib/jenkins/workspace/final/playbook.yaml -u vagrant -vvv
+                    '''
+                }
             }
         }
     }
