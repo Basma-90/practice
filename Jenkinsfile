@@ -51,7 +51,7 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 script {
-                    sh "ansible-playbook -i ~/ansible/inventory ~/ansible/playbook.yaml"
+                    sh "ansible-playbook -i /home/basma/ansible/inventory /home/basma/ansible/playbook.yaml"
                 }
             }
         }
