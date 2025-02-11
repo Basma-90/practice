@@ -53,7 +53,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'key', variable: 'ANSIBLE_PRIVATE_KEY')]) {
                 sh '''
                      chmod 600 $ANSIBLE_PRIVATE_KEY
-                     ansible-playbook -i inventory playbook.yaml --private-key $ANSIBLE_PRIVATE_KEY -u basma
+                     ansible-playbook -i inventory playbook.yaml --private-key $ANSIBLE_PRIVATE_KEY -u vagrant
                    '''
                 }
 
