@@ -10,3 +10,8 @@ all:
       ansible_user: vagrant
       ansible_private_key_file: /var/lib/jenkins/workspace/final/vagrant_key
       ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  children:
+    targets:
+      hosts:
+        machine1:
+        machine2:
