@@ -50,10 +50,13 @@ pipeline {
 
         stage('Run Ansible Playbook') {
             steps {
+                withCredentials([file(credentialsId: 'key', variable: 'ANSIBLE_PRIVATE_KEY')]) {
                 sh '''
-                    ansible-playbook -i /home/basma/ansible/inventory /home/basma/ansible/playbook.yaml \
-                    --private-key=/var/lib/jenkins/.ssh/vagrant_key
-                '''
+                     chmod 600 $ANSIBLE_PRIVATE_KEY
+                     ansible-playbook -i inventory playbook.yaml --private-key $ANSIBLE_PRIVATE_KEY
+                   '''
+                }
+
             }
         }
     }
