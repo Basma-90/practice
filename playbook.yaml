@@ -2,20 +2,29 @@
   hosts: targets
   become: yes
   tasks:
-  - name: Install Docker
-    apt:
-      name: docker.io
-      state: present
-      update_cache: yes
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
 
-  - name: Ensure Docker service is running
-    service:
-      name: docker
-      state: started
-      enabled: yes
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
 
-  - name: Pull Docker Image from Docker Hub
-    command: docker pull basma227/flask-weather-app:latest
+    - name: Pull Docker Image from Docker Hub
+      command: docker pull basma227/flask-weather-app:latest
 
-  - name: Run Docker Container
-    command: docker run -d --name weather-container -p 8080:80 basma227/flask-weather-app:latest
+    - name: Check if container exists
+      shell: "docker ps -aq -f name=weather-container"
+      register: container_id
+      changed_when: false
+
+    - name: Stop and remove existing container
+      command: docker rm -f weather-container
+      when: container_id.stdout != ""
+
+    - name: Run Docker Container
+      command: docker run -d --name weather-container -p 8080:80 basma227/flask-weather-app:latest
