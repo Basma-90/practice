@@ -50,13 +50,12 @@ pipeline {
 
         stage('Run Ansible Playbook') {
             steps {
-                withCredentials([file(credentialsId: 'key', variable: 'ANSIBLE_PRIVATE_KEY')]) {
-                sh '''
-                     chmod 600 $ANSIBLE_PRIVATE_KEY
-                     ansible-playbook -i inventory playbook.yaml --private-key $ANSIBLE_PRIVATE_KEY -u vagrant
-                   '''
+                // Use ssh-agent to manage the SSH key
+                sshagent(credentials: ['ansible']) {
+                    sh '''
+                        ansible-playbook -i inventory playbook.yaml -u vagrant
+                    '''
                 }
-
             }
         }
     }
