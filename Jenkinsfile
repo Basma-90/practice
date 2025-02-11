@@ -52,6 +52,7 @@ pipeline {
             steps {
                 sshagent(credentials: ['ansible']) {
                     sh '''
+                        chmod 600 /var/lib/jenkins/workspace/final/vagrant_key
                         ansible-playbook -i /var/lib/jenkins/workspace/final/inventory.yaml /var/lib/jenkins/workspace/final/playbook.yaml -u vagrant -vvv
                     '''
                 }
