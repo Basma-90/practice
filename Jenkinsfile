@@ -50,12 +50,9 @@ pipeline {
 
         stage('Run Ansible Playbook') {
             steps {
-                // Use ssh-agent to manage the SSH key
-                sshagent(credentials: ['ansible']) {
-                    sh '''
-                        ansible-playbook -i inventory playbook.yaml -u vagrant
-                    '''
-                }
+                sh '''
+                     ansible-playbook -i /var/lib/jenkins/workspace/final/inventory /var/lib/jenkins/workspace/final/playbook.yaml --private-key /var/lib/jenkins/workspace/final/vagrant_key
+                '''
             }
         }
     }
