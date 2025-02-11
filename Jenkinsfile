@@ -51,7 +51,7 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 sh '''
-                     ansible-playbook -i /var/lib/jenkins/workspace/final/inventory /var/lib/jenkins/workspace/final/playbook.yaml 
+                     ansible-playbook -i /var/lib/jenkins/workspace/final/inventory.yaml /var/lib/jenkins/workspace/final/playbook.yaml 
                 '''
             }
         }
