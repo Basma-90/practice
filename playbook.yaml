@@ -17,19 +17,8 @@
     - name: Pull Docker Image from Docker Hub
       command: docker pull basma227/flask-weather-app:latest
 
-    - name: Check if container exists
-      command: docker ps -aq -f name=weather-container
-      register: container_id
-      changed_when: false
-
-    - name: Stop running container
-      command: docker stop {{ container_id.stdout }}
-      when: container_id.stdout | length > 0
-      ignore_errors: yes
-
-    - name: Remove existing container
-      command: docker rm -f {{ container_id.stdout }}
-      when: container_id.stdout | length > 0
+    - name: Remove existing container (if exists)
+      command: docker rm -f weather-container
       ignore_errors: yes
 
     - name: Run Docker Container
