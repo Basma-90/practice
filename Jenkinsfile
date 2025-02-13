@@ -60,41 +60,40 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            script {
-                try {
-                    emailext subject: "✅ Jenkins Pipeline Succeeded: ${env.JOB_NAME}",
-                             body: """
-                             🎉 Great news! Your Jenkins pipeline **${env.JOB_NAME}** completed successfully!
-                             - Build Number: **${env.BUILD_NUMBER}**
-                             - Check the logs here: ${env.BUILD_URL}
-                             """,
-                             recipientProviders: [[$class: 'CulpritsRecipientProvider']],
-                             to: "basmasabry33333@gmail.com",
-                             debugMode: true // Enable debugging for email
-                } catch (Exception e) {
-                    echo "Email sending failed: ${e.getMessage()}"
-                }
-            }
-        }
-
-        failure {
-            script {
-                try {
-                    emailext subject: "❌ Jenkins Pipeline Failed: ${env.JOB_NAME}",
-                             body: """
-                             ❌ Oops! The Jenkins pipeline **${env.JOB_NAME}** failed!
-                             - Build Number: **${env.BUILD_NUMBER}**
-                             - Check the logs here: ${env.BUILD_URL}
-                             """,
-                             recipientProviders: [[$class: 'CulpritsRecipientProvider']],
-                             to: "basmasabry33333@gmail.com",
-                             debugMode: true // Enable debugging for email
-                } catch (Exception e) {
-                    echo "Email sending failed: ${e.getMessage()}"
-                }
+   post {
+    success {
+        script {
+            try {
+                emailext subject: "✅ Jenkins Pipeline Succeeded: ${env.JOB_NAME}",
+                         body: """
+                         🎉 Great news! Your Jenkins pipeline **${env.JOB_NAME}** completed successfully!
+                         - Build Number: **${env.BUILD_NUMBER}**
+                         - Check the logs here: ${env.BUILD_URL}
+                         """,
+                         recipientProviders: [[$class: 'CulpritsRecipientProvider']],
+                         to: "basmasabry33333@gmail.com"
+            } catch (Exception e) {
+                echo "Email sending failed: ${e.getMessage()}"
             }
         }
     }
+
+    failure {
+        script {
+            try {
+                emailext subject: "❌ Jenkins Pipeline Failed: ${env.JOB_NAME}",
+                         body: """
+                         ❌ Oops! The Jenkins pipeline **${env.JOB_NAME}** failed!
+                         - Build Number: **${env.BUILD_NUMBER}**
+                         - Check the logs here: ${env.BUILD_URL}
+                         """,
+                         recipientProviders: [[$class: 'CulpritsRecipientProvider']],
+                         to: "basmasabry33333@gmail.com"
+            } catch (Exception e) {
+                echo "Email sending failed: ${e.getMessage()}"
+            }
+        }
+    }
+}
+
 }
