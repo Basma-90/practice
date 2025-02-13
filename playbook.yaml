@@ -21,5 +21,11 @@
       command: docker rm -f weather-container
       ignore_errors: yes
 
-    - name: Run Docker Container
-      command: docker run -d --name weather-container -p 8080:80 basma227/flask-weather-app:latest
+    - name: Create database directory on host
+      file:
+        path: /home/vagrant/data
+        state: directory
+        mode: '0777'
+
+    - name: Run Docker Container with Volume
+      command: docker run -d --name weather-container -p 8080:80 -v /home/vagrant/data:/app/data basma227/flask-weather-app:latest
