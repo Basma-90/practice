@@ -59,4 +59,27 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            emailext subject: "✅ Jenkins Pipeline Succeeded: ${env.JOB_NAME}",
+                     body: """
+                     🎉 Great news! Your Jenkins pipeline **${env.JOB_NAME}** completed successfully!
+                     - Build Number: **${env.BUILD_NUMBER}**
+                     - Check the logs here: ${env.BUILD_URL}
+                     """,
+                     recipientProviders: [[$class: 'CulpritsRecipientProvider']],
+                     to: "basmasabry33333@gmail.com"
+        }
+        failure {
+            emailext subject: "❌ Jenkins Pipeline Failed: ${env.JOB_NAME}",
+                     body: """
+                     ❌ Oops! The Jenkins pipeline **${env.JOB_NAME}** failed!
+                     - Build Number: **${env.BUILD_NUMBER}**
+                     - Check the logs here: ${env.BUILD_URL}
+                     """,
+                     recipientProviders: [[$class: 'CulpritsRecipientProvider']],
+                     to: "basmasabry33333@gmail.com"
+        }
+    }
 }
