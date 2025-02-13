@@ -22,4 +22,4 @@
       ignore_errors: yes
 
     - name: Run Docker Container
-      command: docker run -d --name weather-container -p 8080:80 basma227/flask-weather-app:latest
+      command: docker run -d --name weather-container -p 8080:80 -v $(pwd)/database:/app basma227/flask-weather-app:latest
