@@ -137,6 +137,9 @@ pipeline {
 ## Screenshot of the email sent 
 ![Containers Running](images/email.jpg)
 
+## Screenshot of the successed pipeline
+![Containers Running](images/pipeline.png)
+
 ## Conclusion
 This Jenkins pipeline automates the CI/CD process by integrating **GitHub**, **Docker**, **Ansible**, and **Email Notifications** for a seamless deployment experience. 🚀
 
